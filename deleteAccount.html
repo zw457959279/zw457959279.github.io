@@ -1,22 +1,224 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />     
-<title>app下载</title>
-<style>
-    *{
-        margin: 0;
-        padding: 0;
-    }
-</style>
-<script>
-    function onLoad(){
-       
-    }
-</script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="Instructions for deleting a DPI GO account">
+    <title>DPI GO - Account Deletion</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --accent: #176b5b;
+            --accent-dark: #0f4f43;
+            --ink: #17201e;
+            --muted: #5b6764;
+            --line: #dbe3e0;
+            --surface: #ffffff;
+            --soft: #f1f6f4;
+            --warning: #8a4b12;
+            --warning-bg: #fff8ef;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-width: 320px;
+            background: #f7f9f8;
+            color: var(--ink);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+            line-height: 1.65;
+        }
+
+        header {
+            border-bottom: 1px solid var(--line);
+            background: var(--surface);
+        }
+
+        .topbar, main {
+            width: min(100% - 40px, 760px);
+            margin: 0 auto;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-height: 72px;
+        }
+
+        .app-mark {
+            display: grid;
+            width: 42px;
+            height: 42px;
+            flex: 0 0 42px;
+            place-items: center;
+            border-radius: 8px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .app-name {
+            margin: 0;
+            font-size: 20px;
+            line-height: 1.3;
+        }
+
+        .developer {
+            margin: 3px 0 0;
+            color: var(--muted);
+            font-size: 13px;
+            overflow-wrap: anywhere;
+        }
+
+        main { padding: 54px 0 64px; }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(28px, 6vw, 40px);
+            line-height: 1.25;
+            letter-spacing: 0;
+        }
+
+        .intro {
+            max-width: 640px;
+            margin: 14px 0 40px;
+            color: var(--muted);
+            font-size: 16px;
+        }
+
+        section {
+            padding: 30px 0;
+            border-top: 1px solid var(--line);
+        }
+
+        h2 {
+            margin: 0 0 18px;
+            font-size: 21px;
+            line-height: 1.4;
+            letter-spacing: 0;
+        }
+
+        ol {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            counter-reset: steps;
+        }
+
+        ol li {
+            position: relative;
+            min-height: 42px;
+            padding: 8px 0 8px 58px;
+            counter-increment: steps;
+        }
+
+        ol li + li { margin-top: 12px; }
+
+        ol li::before {
+            content: counter(steps);
+            position: absolute;
+            top: 2px;
+            left: 0;
+            display: grid;
+            width: 42px;
+            height: 42px;
+            place-items: center;
+            border: 1px solid #aac8c1;
+            border-radius: 50%;
+            background: var(--soft);
+            color: var(--accent-dark);
+            font-weight: 700;
+        }
+
+        .data-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px 24px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .data-list li {
+            position: relative;
+            padding: 4px 0 4px 24px;
+        }
+
+        .data-list li::before {
+            content: "";
+            position: absolute;
+            top: 13px;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .notice {
+            margin-top: 22px;
+            padding: 16px 18px;
+            border-left: 4px solid #d17a2a;
+            background: var(--warning-bg);
+            color: var(--warning);
+        }
+
+        .notice strong {
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .notice p { margin: 0; }
+
+        @media (max-width: 560px) {
+            .topbar, main { width: min(100% - 32px, 760px); }
+            main { padding-top: 38px; }
+            .data-list { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
-<body onLoad="onLoad()">
-    testPage
+<body>
+    <header>
+        <div class="topbar">
+            <div class="app-mark" aria-hidden="true">DPI</div>
+            <div>
+                <p class="app-name"><strong>DPI GO</strong></p>
+                <p class="developer">Guoqi Dayou Spacetime Technology (anqing) Co., Ltd</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h1>Delete Your DPI GO Account</h1>
+        <p class="intro">You can permanently delete your account in the DPI GO app. Once the deletion is complete, your account and its associated data cannot be recovered.</p>
+
+        <section aria-labelledby="steps-title">
+            <h2 id="steps-title">How to Delete Your Account</h2>
+            <ol>
+                <li>Open the DPI GO app, go to the login page, and sign in with your account name and password.</li>
+                <li>Open the Mine tab, then tap the Settings icon to go to the Settings page.</li>
+                <li>Open Account &amp; Security, then tap Apply to cancel the account.</li>
+                <li>Follow the on-screen instructions to confirm the account deletion.</li>
+            </ol>
+        </section>
+
+        <section aria-labelledby="data-title">
+            <h2 id="data-title">Data That Will Be Deleted</h2>
+            <ul class="data-list">
+                <li>Account and profile information</li>
+                <li>Vehicle binding information</li>
+                <li>Published posts and related information</li>
+                <li>All other data associated with the account</li>
+            </ul>
+            <div class="notice" role="note">
+                <strong>Data Retention Period</strong>
+                <p>When the account is deleted, all data listed above will be permanently deleted and will not be retained.</p>
+            </div>
+        </section>
+    </main>
 </body>
 </html>
