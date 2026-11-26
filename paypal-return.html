@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>支付结果</title>
+<style>
+  html,body{margin:0;height:100%;background:#f5f6f8;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;}
+  .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;}
+  .card{width:100%;max-width:420px;background:#fff;border-radius:16px;padding:32px 24px;box-sizing:border-box;text-align:center;}
+  .icon{width:56px;height:56px;border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff;background:#1f9d55;}
+  .icon.cancel{background:#9aa3ad;}
+  h1{font-size:19px;font-weight:600;color:#1c1c1e;margin:0 0 10px;}
+  p{font-size:14px;line-height:1.6;color:#6b7280;margin:0 0 24px;}
+  .btn{display:block;width:100%;padding:14px 0;border:0;border-radius:10px;background:#003087;color:#fff;font-size:16px;font-weight:600;text-decoration:none;}
+  .btn:active{opacity:.9;}
+  .tip{font-size:12px;color:#9aa3ad;margin-top:16px;line-height:1.6;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="icon" id="icon">&#10003;</div>
+    <h1 id="title">支付完成</h1>
+    <p id="desc">正在返回 App 确认支付结果…</p>
+    <a class="btn" id="openBtn" href="#">返回APP</a>
+    <div class="tip">若无反应，请点上方按钮；仍无法返回时，请手动切回 App，支付结果会自动确认。</div>
+  </div>
+</div>
+<script>
+(function () {
+  var SCHEME = 'dayouebike://paypal';
+  var params = new URLSearchParams(location.search || '');
+  var token = params.get('token') || params.get('paypalOrderId') || '';
+  var cancelled = /cancel/i.test(location.pathname) || params.get('cancel') === '1' || params.get('status') === 'cancel';
+
+  var target = SCHEME + (cancelled ? '/cancel' : '/return');
+  if (token) target += '?token=' + encodeURIComponent(token);
+
+  if (cancelled) {
+    document.getElementById('icon').className = 'icon cancel';
+    document.getElementById('icon').textContent = '\u2014';
+    document.getElementById('title').textContent = '已取消支付';
+    document.getElementById('desc').textContent = '正在返回 App…';
+  }
+  document.getElementById('openBtn').setAttribute('href', target);
+
+  var opened = false;
+  function openApp() {
+    if (opened) return;
+    opened = true;
+    // 方式1：直接跳转（iOS Safari 最可靠）
+    try { window.location.href = target; } catch (e) {}
+    // 方式2：隐藏 a 标签模拟点击（部分安卓浏览器对 a 点击更可靠）
+    setTimeout(function () {
+      try {
+        var a = document.createElement('a');
+        a.href = target;
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function () { document.body.removeChild(a); }, 1000);
+      } catch (e) {}
+    }, 80);
+    // 方式3：iframe 兜底
+    setTimeout(function () {
+      try {
+        var f = document.createElement('iframe');
+        f.style.display = 'none';
+        f.src = target;
+        document.body.appendChild(f);
+        setTimeout(function () { document.body.removeChild(f); }, 1500);
+      } catch (e) {}
+    }, 160);
+  }
+
+  // 页面加载后自动唤起；iOS 需用户手势的场景由按钮兜底
+  setTimeout(openApp, 200);
+  document.getElementById('openBtn').addEventListener('click', function (e) {
+    e.preventDefault();
+    opened = false;
+    openApp();
+  });
+})();
+</script>
+</body>
+</html>
